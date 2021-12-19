@@ -1,8 +1,10 @@
 const { Sequelize } = require('sequelize')
-const dotenv = require('dotenv')
-dotenv.config()
+// const dotenv = require('dotenv')
+// dotenv.config()
 
 const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env
+
+console.log(DB_NAME)
 
 module.exports = new Sequelize(
   DB_NAME,

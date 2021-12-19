@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000
 
 const app = express()
 
-const start = () => {
+const start = async () => {
   try {
     await sequelize.authenticate() // connection 
     await sequelize.sync() // sync db with data shema
