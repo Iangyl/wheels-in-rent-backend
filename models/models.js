@@ -58,10 +58,37 @@ const Order = sequelize.define('order', {
   comments: { type: DataTypes.TEXT },
 })
 
-User.hasOne(Personal)
-Personal.belongsTo(User)
+Personal.hasOne(User)
+User.belongsTo(Personal)
 
 User.hasMany(Feedback)
 Feedback.belongsTo(User)
 
-// car tables relations
+User.hasMany(Order)
+Order.belongsTo(User)
+
+Brand.hasMany(CarModel)
+CarModel.belongsTo(Brand)
+
+CarModel.hasMany(Car)
+Car.belongsTo(CarModel)
+
+ComfortType.hasMany(Car)
+Car.belongsTo(ComfortType)
+
+Car.hasOne(Order)
+Order.belongsTo(Car)
+
+Order.hasOne(User)
+User.belongsTo(Order)
+
+module.exports = {
+  User,
+  Personal,
+  Feedback,
+  Brand,
+  ComfortType,
+  CarModel,
+  Car,
+  Order,
+}
