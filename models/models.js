@@ -5,6 +5,7 @@ const User = sequelize.define('user', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false },
   email: { type: DataTypes.STRING, unique: true, allowNull: false },
+  role: { type: DataTypes.STRING, allowNull: false },
   password: { type: DataTypes.INTEGER },
 })
 
@@ -19,6 +20,11 @@ const Feedback = sequelize.define('feedback', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   text: { type: DataTypes.TEXT },
   grade: { type: DataTypes.INTEGER },
+})
+
+const UserStatus = sequelize.define('user_status', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, unique: true, allowNull: false },
 })
 
 const Brand = sequelize.define('brand', {
@@ -51,6 +57,21 @@ const Car = sequelize.define('car', {
   img: { type: DataTypes.STRING }
 })
 
+const CarStatus = sequelize.define('car_status', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, unique: true, allowNull: false },
+})
+
+const Office = sequelize.define('office', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  location: { type: DataTypes.STRING },
+})
+
+const OrderStatus = sequelize.define('order_status', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, unique: true, allowNull: false },
+})
+
 const Order = sequelize.define('order', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   start_date: { type: DataTypes.DATE },
@@ -58,8 +79,11 @@ const Order = sequelize.define('order', {
   comments: { type: DataTypes.TEXT },
 })
 
-Personal.hasOne(User)
-User.belongsTo(Personal)
+User.hasOne(Personal)
+Personal.belongsTo(User)
+
+User.hasOne(UserStatus)
+UserStatus.belongsToMany(User)
 
 User.hasMany(Feedback)
 Feedback.belongsTo(User)
@@ -73,14 +97,20 @@ CarModel.belongsTo(Brand)
 CarModel.hasMany(Car)
 Car.belongsTo(CarModel)
 
-ComfortType.hasMany(Car)
-Car.belongsTo(ComfortType)
+Car.hasOne(ComfortType)
+ComfortType.belongsToMany(Car)
 
-Car.hasOne(Order)
-Order.belongsTo(Car)
+Car.hasOne(CarStatus)
+CarStatus.belongsToMany(Car)
 
-Order.hasOne(User)
-User.belongsTo(Order)
+Order.hasMany(Car)
+Car.belongsTo(Order)
+
+Order.hasOne(Office)
+Office.belongsToMany(Order)
+
+Order.hasOne(OrderStatus)
+OrderStatus.belongsToMany(Order)
 
 module.exports = {
   User,
@@ -90,5 +120,9 @@ module.exports = {
   ComfortType,
   CarModel,
   Car,
+  Office,
   Order,
+  UserStatus,
+  CarStatus,
+  OrderStatus,
 }
