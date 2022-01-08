@@ -1,4 +1,12 @@
 class CarController {
+  async getCars (req, res) {
+    
+  }
+
+  async getCar (req, res) {
+
+  }
+
   async newCar (req, res) {
 
   }
