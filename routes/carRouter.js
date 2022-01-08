@@ -6,10 +6,10 @@ router.get('/', CarController.getCars)
 
 router.get('/car/:id', CarController.getCar)
 
-router.post('/admin/add-car', CarController.newCar)
+router.post('/add-car', CarController.newCar)
 
-router.delete('/admin/remove-car', CarController.deleteCar)
+router.delete('/remove-car', CarController.deleteCar)
 
-router.put('/admin/update-car', CarController.updateCar)
+router.put('/update-car', CarController.updateCar)
 
 module.exports = router
