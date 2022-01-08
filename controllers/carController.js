@@ -8,7 +8,8 @@ class CarController {
   }
 
   async newCar (req, res) {
-
+    const { price, id } = req.body
+    const { img } = req.files
   }
 
   async updateCar (req, res) {
