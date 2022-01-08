@@ -82,8 +82,8 @@ const Order = sequelize.define('order', {
 User.hasOne(Personal)
 Personal.belongsTo(User)
 
-User.hasOne(UserStatus)
-UserStatus.belongsToMany(User)
+UserStatus.hasMany(User)
+User.belongsTo(UserStatus)
 
 User.hasMany(Feedback)
 Feedback.belongsTo(User)
@@ -97,20 +97,20 @@ CarModel.belongsTo(Brand)
 CarModel.hasMany(Car)
 Car.belongsTo(CarModel)
 
-Car.hasOne(ComfortType)
-ComfortType.belongsToMany(Car)
+ComfortType.hasMany(Car)
+Car.belongsTo(ComfortType)
 
-Car.hasOne(CarStatus)
-CarStatus.belongsToMany(Car)
+CarStatus.hasMany(Car)
+Car.belongsTo(CarStatus)
 
 Order.hasMany(Car)
 Car.belongsTo(Order)
 
-Order.hasOne(Office)
-Office.belongsToMany(Order)
+Office.hasMany(Order)
+Order.belongsTo(Office)
 
-Order.hasOne(OrderStatus)
-OrderStatus.belongsToMany(Order)
+OrderStatus.hasMany(Order)
+Order.belongsTo(OrderStatus)
 
 module.exports = {
   User,
