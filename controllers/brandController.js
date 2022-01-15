@@ -4,15 +4,26 @@ class BrandController {
   async addBrand (req, res) {
     const { name } = req.body
     const brand = await Brand.create({ name })
-    return res.json('Ok!')
+    return res.json({ message: 'Success!', id: brand.id })
   }
 
   async updateBrand (req, res) {
-
+    const { id, name } = req.body
+    await Brand.update(
+      { name },
+      { where: { id: id } },
+      )
+    return res.json('Success!')
   }
 
   async deleteBrand (req, res) {
-
+    const { id } = req.body
+    await Brand.destroy({
+      where: {
+        id: id
+      }
+    })
+    return res.json('Success!')
   }
 
   async getAllBrands (req, res) {
