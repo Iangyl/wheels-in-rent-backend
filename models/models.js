@@ -46,7 +46,7 @@ const CarModel = sequelize.define('car_model', {
   desc_text: { type: DataTypes.TEXT },
 })
 
-const ComfortType = sequelize.define('comfort_type', {
+const ComfortType = sequelize.define('comfort_types', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING },
 })
@@ -57,7 +57,7 @@ const Car = sequelize.define('car', {
   img: { type: DataTypes.STRING }
 })
 
-const CarStatus = sequelize.define('car_status', {
+const CarStatus = sequelize.define('car_statuses', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 })
@@ -67,7 +67,7 @@ const Office = sequelize.define('office', {
   location: { type: DataTypes.STRING },
 })
 
-const OrderStatus = sequelize.define('order_status', {
+const OrderStatus = sequelize.define('order_statuses', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 })
@@ -79,8 +79,8 @@ const Order = sequelize.define('order', {
   comments: { type: DataTypes.TEXT },
 })
 
-User.hasOne(Personal)
-Personal.belongsTo(User)
+Personal.hasOne(User)
+User.belongsTo(Personal)
 
 UserStatus.hasMany(User)
 User.belongsTo(UserStatus)
@@ -103,8 +103,8 @@ Car.belongsTo(ComfortType)
 CarStatus.hasMany(Car)
 Car.belongsTo(CarStatus)
 
-Order.hasMany(Car)
-Car.belongsTo(Order)
+Car.hasMany(Order)
+Order.belongsTo(Car)
 
 Office.hasMany(Order)
 Order.belongsTo(Office)
