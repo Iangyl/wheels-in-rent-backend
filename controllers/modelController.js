@@ -56,7 +56,7 @@ class ModelController {
         id: id
       }
     })
-    return res.json({ message: 'Success!' })
+    return res.json('Success!')
   }
 
   async getAllModels (req, res) {

@@ -1,6 +1,6 @@
 const ApiError = require('../error/ApiError')
 const { ComfortType } = require('./../models/models')
-class BrandController {
+class ComfortTypeController {
   async addComfortType (req, res) {
     const { name } = req.body
     const comfortType = await ComfortType.create({ name })
@@ -13,4 +13,4 @@ class BrandController {
   }
 }
 
-module.exports = new BrandController()
+module.exports = new ComfortTypeController()

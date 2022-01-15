@@ -2,7 +2,7 @@ const Router = require('express')
 const router =  new Router()
 const CarController = require('./../controllers/carController')
 
-router.get('/', CarController.getCars)
+router.get('/cars', CarController.getCars)
 
 router.get('/car/:id', CarController.getCar)
 

@@ -43,7 +43,7 @@ class CarController {
   }
 
   async deleteCar (req, res) {
-    const { id } = req.query
+    const { id } = req.body
   
     await Car.destroy({
       where: {
