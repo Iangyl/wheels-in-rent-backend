@@ -10,7 +10,8 @@ class CarController {
   }
 
   async getCar (req, res) {
-    const { id } = req.body
+    const { id } = req.query
+    
     const car = await Car.findByPk(id)
     return res.json({ message: 'Success!', car })
   }
@@ -31,11 +32,19 @@ class CarController {
   }
 
   async updateCar (req, res) {
+    const { id } = req.query
 
+    await Car.update(
+      { ...req.body },
+      { where: { id: id } }
+    )
+
+    return res.json('Success!')
   }
 
   async deleteCar (req, res) {
-    const { id } = req.body
+    const { id } = req.query
+  
     await Car.destroy({
       where: {
         id: id

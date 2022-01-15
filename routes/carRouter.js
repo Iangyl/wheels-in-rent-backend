@@ -10,6 +10,6 @@ router.post('/add-car', CarController.newCar)
 
 router.delete('/remove-car', CarController.deleteCar)
 
-router.put('/update-car', CarController.updateCar)
+router.patch('/update-car', CarController.updateCar)
 
 module.exports = router

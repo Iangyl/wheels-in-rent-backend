@@ -1,4 +1,4 @@
-const { CarModel } = require('./../models')
+const { CarModel } = require('./../models/models')
 const ApiError = require('../error/ApiError')
 
 class ModelController {
@@ -39,7 +39,14 @@ class ModelController {
   }
 
   async updateModel (req, res) {
-    
+    const { id } = req.query
+
+    await CarModel.update(
+      { ...req.body },
+      { where: { id: id } }
+    )
+
+    return res.json('Success!')
   }
 
   async deleteModel (req, res) {
@@ -58,7 +65,8 @@ class ModelController {
   }
 
   async getModelById (req, res) {
-    const { id } = req.body
+    const { id } = req.query
+
     const carModel = await CarModel.findByPK(id)
     return res.json({ message: 'Success!', carModel })
   }

@@ -10,6 +10,6 @@ router.post('/add-model', ModelController.addModel)
 
 router.delete('/remove-model', ModelController.deleteModel)
 
-router.put('/update-model', ModelController.updateModel)
+router.patch('/update-model', ModelController.updateModel)
 
 module.exports = router
