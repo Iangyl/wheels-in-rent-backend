@@ -10,7 +10,7 @@ class CarController {
   }
 
   async getCar (req, res) {
-    const { id } = req.query
+    const { id } = req.params
     
     const car = await Car.findByPk(id)
     return res.json({ message: 'Success!', car })
@@ -18,12 +18,12 @@ class CarController {
 
   async newCar (req, res, next) {
     try {
-      const { car_number, comfort, price, model_id } = req.body
+      const { id_number, comfortTypeId, price, carModelId, carStatusId } = req.body
       const { img } = req.files
       const fileName = uuid.v4() + '.jpg'
       img.mv(path.resolve(__dirname, '..', 'static', fileName))
   
-      await Car.create({ id_number: car_number, carModelId: model_id, price, comfortTypeId: comfort, img: fileName, carStatusId: 1 }) // created model and test car create
+      await Car.create({ id_number, carModelId, price, comfortTypeId, img: fileName, carStatusId }) // created model and test car create
       
       return res.json('Success!')
     } catch (e) {
@@ -32,7 +32,7 @@ class CarController {
   }
 
   async updateCar (req, res) {
-    const { id } = req.query
+    const { id } = req.params
 
     await Car.update(
       { ...req.body },

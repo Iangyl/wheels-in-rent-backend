@@ -6,7 +6,7 @@ router.post('/add-brand', BrandController.addBrand)
 
 router.delete('/remove-brand', BrandController.deleteBrand)
 
-router.put('/update-brand', BrandController.updateBrand)
+router.put('/update-brand/:id', BrandController.updateBrand)
 
 router.get('/brands', BrandController.getAllBrands)
 

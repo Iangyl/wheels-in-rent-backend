@@ -8,12 +8,13 @@ class BrandController {
   }
 
   async updateBrand (req, res) {
-    const { id } = req.query
+    const { id } = req.params
     const { name } = req.body
+
     await Brand.update(
       { name: name },
       { where: { id: id } },
-      )
+    )
     return res.json('Success!')
   }
 

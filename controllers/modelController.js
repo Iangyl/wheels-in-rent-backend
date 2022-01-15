@@ -2,7 +2,7 @@ const { CarModel } = require('./../models/models')
 const ApiError = require('../error/ApiError')
 
 class ModelController {
-  async addModel (req, res) {
+  async addModel(req, res, next) {
     try {
       const {
         name,
@@ -15,10 +15,10 @@ class ModelController {
         body_type,
         edition_year,
         desc_text,
-        brand_id,
+        brandId,
       } = req.body
 
-      const carModel = await CarModel.create(
+      const carModel = await CarModel.create({
         name,
         engine_power,
         fuel_consumption,
@@ -29,7 +29,8 @@ class ModelController {
         body_type,
         edition_year,
         desc_text,
-        brand_id
+        brandId
+      }
       )
 
       res.json({ message: 'Success!', id: carModel.id })
@@ -38,8 +39,8 @@ class ModelController {
     }
   }
 
-  async updateModel (req, res) {
-    const { id } = req.query
+  async updateModel(req, res) {
+    const { id } = req.params
 
     await CarModel.update(
       { ...req.body },
@@ -49,7 +50,7 @@ class ModelController {
     return res.json('Success!')
   }
 
-  async deleteModel (req, res) {
+  async deleteModel(req, res) {
     const { id } = req.body
     await CarModel.destroy({
       where: {
@@ -59,15 +60,19 @@ class ModelController {
     return res.json('Success!')
   }
 
-  async getAllModels (req, res) {
+  async getAllModels(req, res) {
     const carModels = await CarModel.findAll()
     return res.json({ message: 'Success!', carModels })
   }
 
-  async getModelById (req, res) {
-    const { id } = req.query
+  async getModelById(req, res) {
+    const { id } = req.params
 
-    const carModel = await CarModel.findByPK(id)
+    const carModel = await CarModel.findOne({
+      where: {
+        id
+      }
+    })
     return res.json({ message: 'Success!', carModel })
   }
 }
