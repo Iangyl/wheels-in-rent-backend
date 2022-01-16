@@ -32,16 +32,28 @@ const Brand = sequelize.define('brand', {
   name: { type: DataTypes.STRING, unique: true },
 })
 
+const FuelType = sequelize.define('fuel_type', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, unique: true, allowNull: false },
+})
+
+const BodyType = sequelize.define('body_type', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, unique: true, allowNull: false },
+})
+
+const Transmission = sequelize.define('transmission', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, unique: true, allowNull: false },
+})
+
 const CarModel = sequelize.define('car_model', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
   engine_power: { type: DataTypes.FLOAT },
   fuel_consumption: { type: DataTypes.FLOAT },
-  fuel_type: { type: DataTypes.STRING },
-  transmission: { type: DataTypes.STRING },
   max_speed: { type: DataTypes.FLOAT },
   trunk_volume: { type: DataTypes.FLOAT },
-  body_type: { type: DataTypes.STRING },
   edition_year: { type: DataTypes.DATE },
   desc_text: { type: DataTypes.TEXT },
 })
@@ -94,6 +106,15 @@ Order.belongsTo(User)
 Brand.hasMany(CarModel)
 CarModel.belongsTo(Brand)
 
+FuelType.hasMany(CarModel)
+CarModel.belongsTo(FuelType)
+
+BodyType.hasMany(CarModel)
+CarModel.belongsTo(BodyType)
+
+Transmission.hasMany(CarModel)
+CarModel.belongsTo(Transmission)
+
 CarModel.hasMany(Car)
 Car.belongsTo(CarModel)
 
@@ -117,6 +138,9 @@ module.exports = {
   Personal,
   Feedback,
   Brand,
+  FuelType,
+  BodyType,
+  Transmission,
   ComfortType,
   CarModel,
   Car,
