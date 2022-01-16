@@ -7,6 +7,9 @@ const brandRouter = require('./brandRouter')
 const carModelRouter = require('./carModelRouter')
 const comfortRouter = require('./comfortRouter')
 const carStatusRouter = require('./carStatusRouter')
+const fuelTypeRouter = require('./fuelTypeRouter')
+const bodyTypeRouter = require('./bodyTypeRouter')
+const transmissionRouter = require('./transmissionRouter')
 
 // ================ User ================
 
@@ -19,6 +22,9 @@ router.use('/brand', brandRouter)
 router.use('/car-model', carModelRouter)
 router.use('', comfortRouter)
 router.use('', carStatusRouter)
+router.use('', fuelTypeRouter)
+router.use('', transmissionRouter)
+router.use('', bodyTypeRouter)
 
 // ================ Order ================
 
