@@ -1,11 +1,65 @@
 const uuid = require('uuid')
 const path = require('path')
-const { Car } = require('./../models/models')
+const { Car, CarModel } = require('./../models/models')
 const ApiError = require('../error/ApiError')
+const { returnFilterAttributes } = require('../transformers')
+
+const findMethod = async (params1, params2, limit, offset) => {
+  const comfortTypeId = Object.keys(params2).length !== 0 ? params2.comfortTypeId : null
+  let result
+
+  if (comfortTypeId && Object.keys(params1).length !== 0) {
+    result = await Car.findAll({
+      where: { comfortTypeId: comfortTypeId },
+      include: [
+        {
+          model: CarModel,
+          where: {
+            ...params1
+          }
+        }
+      ],
+      limit,
+      offset
+    })
+  } else if (!comfortTypeId && Object.keys(params1).length !== 0) {
+    result = await Car.findAll({
+      where: { },
+      include: [
+        {
+          model: CarModel,
+          where: {
+            ...params1
+          }
+        }
+      ],
+      limit,
+      offset
+    })
+  } else {
+    result = await Car.findAll({ limit, offset })
+  }
+
+  return result
+}
 
 class CarController {
   async getCars (req, res) {
-    const cars = await Car.findAll()
+    let { brandId, comfortTypeId, bodyTypeId, limit, page } = req.query
+    brandId = brandId || null
+    comfortTypeId = comfortTypeId || null
+    bodyTypeId = bodyTypeId || null
+  
+    page = page || 1
+    limit = limit || 9
+    const offset = page * limit - limit
+
+    // work here
+    const params1 = returnFilterAttributes({ brandId, bodyTypeId })
+    const params2 = returnFilterAttributes({ comfortTypeId })
+
+    const cars = await findMethod(params1, params2, limit, offset)
+
     return res.json({ message: 'Success!', cars })
   }
 
