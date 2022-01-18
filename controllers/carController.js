@@ -9,7 +9,7 @@ const findMethod = async (params1, params2, limit, offset) => {
   let result
 
   if (comfortTypeId && Object.keys(params1).length !== 0) {
-    result = await Car.findAll({
+    result = await Car.findAndCountAll({
       where: { comfortTypeId: comfortTypeId },
       include: [
         {
@@ -23,7 +23,7 @@ const findMethod = async (params1, params2, limit, offset) => {
       offset
     })
   } else if (!comfortTypeId && Object.keys(params1).length !== 0) {
-    result = await Car.findAll({
+    result = await Car.findAndCountAll({
       where: { },
       include: [
         {
@@ -37,7 +37,7 @@ const findMethod = async (params1, params2, limit, offset) => {
       offset
     })
   } else {
-    result = await Car.findAll({ limit, offset })
+    result = await Car.findAndCountAll({ limit, offset })
   }
 
   return result
@@ -54,7 +54,6 @@ class CarController {
     limit = limit || 9
     const offset = page * limit - limit
 
-    // work here
     const params1 = returnFilterAttributes({ brandId, bodyTypeId })
     const params2 = returnFilterAttributes({ comfortTypeId })
 
@@ -66,7 +65,11 @@ class CarController {
   async getCar (req, res) {
     const { id } = req.params
     
-    const car = await Car.findByPk(id)
+    const car = await Car.findOne({
+      where: {
+        id_number: id
+      }
+    })
     return res.json({ message: 'Success!', car })
   }
 
@@ -77,7 +80,7 @@ class CarController {
       const fileName = uuid.v4() + '.jpg'
       img.mv(path.resolve(__dirname, '..', 'static', fileName))
   
-      await Car.create({ id_number, carModelId, price, comfortTypeId, img: fileName, carStatusId }) // created model and test car create
+      await Car.create({ id_number, carModelId, price, comfortTypeId, img: fileName, carStatusId })
       
       return res.json('Success!')
     } catch (e) {
@@ -90,7 +93,7 @@ class CarController {
 
     await Car.update(
       { ...req.body },
-      { where: { id: id } }
+      { where: { id_number: id } }
     )
 
     return res.json('Success!')
