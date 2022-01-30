@@ -75,11 +75,8 @@ class UserController {
   }
 
   async check(req, res, next) {
-    const { id } = req.query
-    if (!id) {
-      return next(ApiError.badRequest('Id not specified!'))
-    }
-    res.json('OK!')
+    const token = generateJWT(req.user.id, req.user.email, req.user.role)
+    return res.json({ message: 'OK!', token })
   }
 }
 
