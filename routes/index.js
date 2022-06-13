@@ -10,6 +10,9 @@ const carStatusRouter = require('./carStatusRouter')
 const fuelTypeRouter = require('./fuelTypeRouter')
 const bodyTypeRouter = require('./bodyTypeRouter')
 const transmissionRouter = require('./transmissionRouter')
+const officeRouter = require('./officeRouter')
+
+router.use('', officeRouter)
 
 // ================ User ================
 
