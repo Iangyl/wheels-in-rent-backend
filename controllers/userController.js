@@ -52,6 +52,7 @@ class UserController {
   }
 
   async signIn(req, res, next) {
+    console.log('=====REQ=====', req)
     const { email, password } = req.body
     const user = await User.findOne({
       where: {
@@ -71,7 +72,7 @@ class UserController {
 
     const token = generateJWT(user.id, user.email, user.role)
 
-    return res.json({ message: 'Success!', token })
+    return res.json({ message: 'Success!', token, role: user.role })
   }
 
   async check(req, res, next) {
