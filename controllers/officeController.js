@@ -1,7 +1,7 @@
 const ApiError = require('../error/ApiError')
 const { Office } = require('../models/models')
 class OfficeController {
-  async addTransmission (req, res) {
+  async addOffice (req, res) {
     const { name } = req.body
     const office = await Office.create({ name })
     return res.json({ message: 'Success!', id: office.id })
