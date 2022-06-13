@@ -10,7 +10,7 @@ const User = sequelize.define('user', {
 })
 
 const Personal = sequelize.define('personal', {
-  birth: { type: DataTypes.DATE, allowNull: false },
+  birth: { type: DataTypes.DATE },
   passport: { type: DataTypes.STRING, unique: true },
   code: { type: DataTypes.STRING, unique: true },
   tel: { type: DataTypes.STRING, unique: true, primaryKey: true, allowNull: false },
